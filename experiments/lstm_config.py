@@ -22,7 +22,8 @@ config = {
     'train_file': 'train.tsv',
     'dev_file': 'dev.tsv',
 
-    'embedding_file': 'F:/workspace-backup/Models/crawl-300d-2M-subword/crawl-300d-2M-subword.vec',
+    # 'embedding_file': 'F:/workspace-backup/Models/crawl-300d-2M-subword/crawl-300d-2M-subword.vec',
+    'embedding_file': '/content/crawl-300d-2M-subword/crawl-300d-2M-subword.vec',
     # 'embedding_file': '/content/crawl-300d-2M.vec/crawl-300d-2M.vec',
     'label_list': ['positive', 'negative', 'neutral']
 }
