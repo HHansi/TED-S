@@ -5,11 +5,13 @@ import pandas as pd
 from sklearn.model_selection import StratifiedShuffleSplit
 
 # from algo.models.lstm_attention import LSTMModel
+from algo.models.common.evaluate import get_eval_results
+from algo.models.common.label_encoder import reversed_label_mapping
 from algo.models.lstm import LSTMModel
 from algo.util.data_preprocessor import preprocess_data
-from algo.util.file_util import delete_create_folder
+from algo.util.file_util import delete_create_folder, create_folder_if_not_exist
 from experiments import lstm_config
-from experiments.lstm_config import SEED, BASE_PATH
+from experiments.lstm_config import SEED, BASE_PATH, PREDICTION_DIRECTORY
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -55,18 +57,13 @@ def train(train_file_path, dev_split=0.1, test_file_path=None):
         # get model predictions
         raw_preds, preds = model.predict(test_data['text'].tolist())
 
-        eval_results = eval(test_data['label'].tolist(), preds)
+        eval_results = get_eval_results(test_data['label'].tolist(), preds)
         logger.info(eval_results)
 
 
 def predict(data_file_path):
-    # data = pd.read_csv(data_file_path, sep="\t", encoding="utf-8")
-    # data = data.rename({'tweet': 'text'}, axis=1)
-    # data['text'] = data['text'].apply(lambda x: preprocess_data(x))
-    # texts = data['text'].tolist()
-
-    # model = LSTMModel(lstm_config.config)
-    # model.predict(texts)
+    create_folder_if_not_exist(PREDICTION_DIRECTORY, is_file_path=False)
+    file_name = os.path.splitext(os.path.basename(data_file_path))[0]
 
     data = pd.read_csv(data_file_path, sep="\t", encoding="utf-8")
     data = data.rename({'tweet': 'text'}, axis=1)
@@ -75,16 +72,23 @@ def predict(data_file_path):
     model = LSTMModel(lstm_config.config)
     raw_preds, preds = model.predict(data['text'].tolist())
 
-    eval_results = eval(data['label'].tolist(), preds)
+    eval_results = get_eval_results(data['label'].tolist(), preds)
     logger.info(eval_results)
+
+    data['predictions'] = preds
+    for i in reversed_label_mapping.keys():
+        data[reversed_label_mapping[i]] = raw_preds[:, i]
+    data['id'] = data['id'].apply(lambda x: str(x))  # save id as a str to avoid round off by excel
+    data.to_excel(os.path.join(PREDICTION_DIRECTORY, f'{file_name}.xlsx'), sheet_name='Sheet1', index=False)
 
 
 if __name__ == '__main__':
-    # data_file_path = "F:/DataSets/Sentiment analysis/FIFA_2014_sentiment_dataset/data_100.tsv"
+    # train_file_path = "F:/DataSets/Sentiment analysis/FIFA_2014_sentiment_dataset/data_100.tsv"
     train_file_path = os.path.join(BASE_PATH, 'data/fifa_2014/train.tsv')
     test_file_path = os.path.join(BASE_PATH, 'data/fifa_2014/test.tsv')
     train(train_file_path, test_file_path=test_file_path)
 
-    # predict(test_file_path)
+    print('\n predictions 2')
+    predict(test_file_path)
 
 

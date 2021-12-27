@@ -4,6 +4,8 @@ import os
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIRECTORY = os.path.join(BASE_PATH, 'output')
 
+PREDICTION_DIRECTORY = os.path.join(OUTPUT_DIRECTORY, 'predictions')
+
 SEED = 157
 
 config = {
