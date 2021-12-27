@@ -2,7 +2,7 @@
 from sklearn.metrics import recall_score, precision_score, f1_score
 
 
-def eval(actuals, predictions):
+def get_eval_results(actuals, predictions):
     results = dict()
     r = recall_score(actuals, predictions, average='macro')
     results['recall'] = r

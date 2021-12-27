@@ -104,7 +104,7 @@ class LSTMModel:
         checkpoint = ModelCheckpoint(best_weights_path, monitor='val_loss', verbose=2, save_best_only=True, mode='min')
         reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.6, patience=1, min_lr=0.0001, verbose=2)
         earlystopping = EarlyStopping(monitor='val_loss', min_delta=0.0001, patience=self.args['earlystopping_patience'], verbose=2, mode='auto')
-        callbacks = [checkpoint, reduce_lr]
+        callbacks = [checkpoint, reduce_lr, earlystopping]
 
         self.model.fit(X_train, y_train, batch_size=self.args['batch_size'], epochs=self.args['n_epochs'], validation_data=(X_dev, y_dev), verbose=2,
                   callbacks=callbacks,)

@@ -1,6 +1,7 @@
 # Created by Hansi at 12/22/2021
 
 label_mapping = {'negative': 0, 'neutral': 1, 'positive': 2}
+reversed_label_mapping = {value: key for (key, value) in label_mapping.items()}
 
 
 def encode(df):
@@ -11,6 +12,5 @@ def encode(df):
 
 
 def decode(labels):
-    reversed_label_mapping = {value: key for (key, value) in label_mapping.items()}
     decoded_labels = [reversed_label_mapping[i] for i in labels]
     return decoded_labels
