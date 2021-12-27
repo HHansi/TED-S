@@ -37,7 +37,7 @@ def train(train_file_path, dev_split=0.1, test_file_path=None):
 
     train.to_csv(os.path.join(new_data_dir, lstm_config.config['train_file']), sep="\t", index=False)
     logger.info(f"Saved {train.shape[0]} train instances.")
-    dev.to_csv(os.path.join(new_data_dir, lstm_config.config['dev_file':]), sep="\t", index=False)
+    dev.to_csv(os.path.join(new_data_dir, lstm_config.config['dev_file']), sep="\t", index=False)
     logger.info(f"Saved {dev.shape[0]} dev instances.")
 
     # train model
