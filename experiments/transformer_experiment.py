@@ -83,8 +83,8 @@ def train(train_file_path, dev_split=0.1, test_file_path=None):
         eval_results = get_eval_results(test_data['label'].tolist(), preds)
         logger.info(eval_results)
 
-        print(f'preds: {preds}')
-        print(f'raw preds: {raw_preds}')
+        # print(f'preds: {preds}')
+        # print(f'raw preds: {raw_preds}')
 
 
 def predict(data_file_path):
@@ -115,3 +115,5 @@ if __name__ == '__main__':
     train_file_path = os.path.join(BASE_PATH, 'data/fifa_2014/train.tsv')
     test_file_path = os.path.join(BASE_PATH, 'data/fifa_2014/test.tsv')
     train(train_file_path, test_file_path=test_file_path)
+
+    # predict(test_file_path)

@@ -17,6 +17,7 @@ MODEL_NAME = "bert-base-uncased"
 config = {
     "best_model_dir": os.path.join(OUTPUT_DIRECTORY, "best_model"),
     'cache_dir': os.path.join(OUTPUT_DIRECTORY, "cache_dir"),
+    'output_dir': OUTPUT_DIRECTORY,
 
     'fp16': False,
     'fp16_opt_level': 'O1',
