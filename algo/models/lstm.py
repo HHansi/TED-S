@@ -29,7 +29,7 @@ from tensorflow.python.keras.preprocessing.sequence import pad_sequences
 from tensorflow.python.keras.preprocessing.text import Tokenizer
 from tensorflow.python.keras.utils import np_utils
 
-from algo.models.common.embedding_util import load_fasttext
+from algo.models.common.embedding_util import load_fasttext, load_concatenated_embeddings
 from algo.models.common.label_encoder import encode, decode
 from algo.models.common.layers import Attention
 from algo.util.file_util import delete_create_folder
@@ -84,12 +84,13 @@ class LSTMModel:
         word_index = self.tokenizer.word_index
         self.args['max_features'] = len(word_index) + 1
 
-        embedding_matrix = load_fasttext(self.args['embedding_file'], word_index, self.args['max_features'])
+        # embedding_matrix, embedding_size = load_fasttext(self.args['embedding_file'], word_index, self.args['max_features'])
+        embedding_matrix, embedding_size = load_concatenated_embeddings(self.args['embedding_details'], word_index, self.args['max_features'])
 
         # define model structure
         K.clear_session()
         inp = Input(shape=(self.args['maxlen'],))
-        x = Embedding(self.args['max_features'], self.args['embedding_size'], weights=[embedding_matrix], trainable=False)(inp)
+        x = Embedding(self.args['max_features'], embedding_size, weights=[embedding_matrix], trainable=False)(inp)
         x = Bidirectional(LSTM(64, return_sequences=True))(x)
         x = Bidirectional(LSTM(64))(x)
         # x = Bidirectional(LSTM(64, return_sequences=True))(x)

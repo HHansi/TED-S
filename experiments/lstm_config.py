@@ -13,7 +13,7 @@ config = {
     'model_dir': os.path.join(OUTPUT_DIRECTORY, "model"),
     'best_model_path': os.path.join(OUTPUT_DIRECTORY, "model", "best_model"),
 
-    'embedding_size': 300,
+    # 'embedding_size': 300,
     'maxlen': 84,  # 72,  # max sequence length
     'max_features': None,  # how many unique words to use (i.e num rows in embedding vector)
     'batch_size': 64,  # 64, 8
@@ -25,7 +25,11 @@ config = {
     'dev_file': 'dev.tsv',
 
     # 'embedding_file': 'F:/workspace-backup/Models/crawl-300d-2M-subword/crawl-300d-2M-subword.vec',
-    'embedding_file': '/content/crawl-300d-2M-subword/crawl-300d-2M-subword.vec',
-    # 'embedding_file': '/content/crawl-300d-2M.vec/crawl-300d-2M.vec',
-    'label_list': ['positive', 'negative', 'neutral']
+    # 'embedding_file': '/content/crawl-300d-2M-subword/crawl-300d-2M-subword.vec',
+    # 'glove_embedding_file': 'F:/workspace-backup/Models/glove.840B.300d/glove.840B.300d.txt',
+
+    'label_list': ['positive', 'negative', 'neutral'],
+
+    'embedding_details': {'glove': 'F:/workspace-backup/Models/glove.840B.300d/glove.840B.300d.txt',
+                          'fasttext': 'F:/workspace-backup/Models/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'}
 }
