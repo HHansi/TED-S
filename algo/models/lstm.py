@@ -1,4 +1,5 @@
 # Created by Hansi at 12/22/2021
+import logging
 import os
 import pickle
 
@@ -33,6 +34,9 @@ from algo.models.common.embedding_util import load_fasttext, load_concatenated_e
 from algo.models.common.label_encoder import encode, decode
 from algo.models.common.layers import Attention
 from algo.util.file_util import delete_create_folder
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 class LSTMModel:
@@ -100,6 +104,7 @@ class LSTMModel:
         x = Dense(len(self.args['label_list']), activation="softmax")(x)
         self.model = Model(inputs=inp, outputs=x)
         self.model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+        logger.info(self.model.summary())
 
         best_weights_path = os.path.join(self.args['model_dir'], 'lstm_attention_weights_best.h5')
         checkpoint = ModelCheckpoint(best_weights_path, monitor='val_loss', verbose=2, save_best_only=True, mode='min')
