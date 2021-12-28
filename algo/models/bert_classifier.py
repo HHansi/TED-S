@@ -48,8 +48,8 @@ from transformers import (
     BertTokenizer,
     BertweetTokenizer,
     RobertaConfig,
-    BertForSequenceClassification,
-    RobertaForSequenceClassification,
+    # BertForSequenceClassification,
+    # RobertaForSequenceClassification,
 )
 from transformers.convert_graph_to_onnx import convert, quantize
 
@@ -75,6 +75,7 @@ from algo.models.common.transformer_classification_utils import (
 # from algo.config.model_args import ClassificationArgs
 # from algo.config.utils import sweep_config_to_sweep_values
 from algo.models.config.transformer_model_args import ClassificationArgs, sweep_config_to_sweep_values
+from algo.models.transformers.bert_model import BertForSequenceClassification
 
 try:
     import wandb
@@ -133,7 +134,7 @@ class ClassificationModel:
             # "albert": (AlbertConfig, AlbertForSequenceClassification, AlbertTokenizer),
             "auto": (AutoConfig, AutoModelForSequenceClassification, AutoTokenizer),
             "bert": (BertConfig, BertForSequenceClassification, BertTokenizer),
-            "bertweet": (RobertaConfig, RobertaForSequenceClassification, BertweetTokenizer),
+            # "bertweet": (RobertaConfig, RobertaForSequenceClassification, BertweetTokenizer),
             # "bigbird": (BigBirdConfig, BigBirdForSequenceClassification, BigBirdTokenizer),
             # "camembert": (CamembertConfig, CamembertForSequenceClassification, CamembertTokenizer),
             # "deberta": (DebertaConfig, DebertaForSequenceClassification, DebertaTokenizer),
