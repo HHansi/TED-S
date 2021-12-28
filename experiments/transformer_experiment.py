@@ -11,6 +11,7 @@ from sklearn.metrics import f1_score, recall_score, precision_score
 
 from algo.models.bert_classifier import ClassificationModel
 from algo.models.common.evaluate import get_eval_results, macro_f1
+from algo.models.common.label_encoder import encode, decode, reversed_label_mapping
 from algo.util.data_preprocessor import preprocess_data
 from algo.util.file_util import delete_create_folder, create_folder_if_not_exist
 from experiments import transformer_config
@@ -45,6 +46,10 @@ def train(train_file_path, dev_split=0.1, test_file_path=None):
     dev = dev.rename({'tweet': 'text'}, axis=1)
     dev = dev.rename({'label': 'labels'}, axis=1)
 
+    # encode labels
+    train = encode(train, label_column='labels')
+    dev = encode(dev, label_column='labels')
+
     # preprocess data
     train['text'] = train['text'].apply(lambda x: preprocess_data(x))
     dev['text'] = dev['text'].apply(lambda x: preprocess_data(x))
@@ -73,6 +78,8 @@ def train(train_file_path, dev_split=0.1, test_file_path=None):
         test_data['text'] = test_data['text'].apply(lambda x: preprocess_data(x))
         # get model predictions
         preds, raw_preds = model.predict(test_data['text'].tolist())
+        # decode predicted labels
+        preds = decode(preds)
 
         eval_results = get_eval_results(test_data['label'].tolist(), preds)
         logger.info(eval_results)
@@ -81,26 +88,29 @@ def train(train_file_path, dev_split=0.1, test_file_path=None):
         print(f'raw preds: {raw_preds}')
 
 
-# def predict(data_file_path):
-#     create_folder_if_not_exist(PREDICTION_DIRECTORY, is_file_path=False)
-#     file_name = os.path.splitext(os.path.basename(data_file_path))[0]
-#
-#     data = pd.read_csv(data_file_path, sep="\t", encoding="utf-8")
-#     data = data.rename({'tweet': 'text'}, axis=1)
-#     data['text'] = data['text'].apply(lambda x: preprocess_data(x))
-#
-#     model = ClassificationModel(MODEL_TYPE, transformer_config.config["best_model_dir"], args=transformer_config.config,
-#                                 use_cuda=torch.cuda.is_available())
-#     preds, raw_preds = model.predict(data['text'].tolist())
-#
-#     eval_results = get_eval_results(data['label'].tolist(), preds)
-#     logger.info(eval_results)
-#
-#     data['predictions'] = preds
-#     for i in reversed_label_mapping.keys():
-#         data[reversed_label_mapping[i]] = raw_preds[:, i]
-#     data['id'] = data['id'].apply(lambda x: str(x))  # save id as a str to avoid round off by excel
-#     data.to_excel(os.path.join(PREDICTION_DIRECTORY, f'{file_name}.xlsx'), sheet_name='Sheet1', index=False)
+def predict(data_file_path):
+    create_folder_if_not_exist(PREDICTION_DIRECTORY, is_file_path=False)
+    file_name = os.path.splitext(os.path.basename(data_file_path))[0]
+
+    data = pd.read_csv(data_file_path, sep="\t", encoding="utf-8")
+    data = data.rename({'tweet': 'text'}, axis=1)
+    data['text'] = data['text'].apply(lambda x: preprocess_data(x))
+
+    model = ClassificationModel(MODEL_TYPE, transformer_config.config["best_model_dir"], args=transformer_config.config,
+                                use_cuda=torch.cuda.is_available())
+    preds, raw_preds = model.predict(data['text'].tolist())
+    # decode predicted labels
+    preds = decode(preds)
+
+    eval_results = get_eval_results(data['label'].tolist(), preds)
+    logger.info(eval_results)
+
+    data['predictions'] = preds
+    for i in reversed_label_mapping.keys():
+        data[reversed_label_mapping[i]] = raw_preds[:, i]
+    data['id'] = data['id'].apply(lambda x: str(x))  # save id as a str to avoid round off by excel
+    data.to_excel(os.path.join(PREDICTION_DIRECTORY, f'{file_name}.xlsx'), sheet_name='Sheet1', index=False)
+
 
 if __name__ == '__main__':
     train_file_path = os.path.join(BASE_PATH, 'data/fifa_2014/train.tsv')

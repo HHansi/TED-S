@@ -4,10 +4,10 @@ label_mapping = {'negative': 0, 'neutral': 1, 'positive': 2}
 reversed_label_mapping = {value: key for (key, value) in label_mapping.items()}
 
 
-def encode(df):
-    df['label'] = df['label'].replace('negative', label_mapping['negative'])
-    df['label'] = df['label'].replace('neutral', label_mapping['neutral'])
-    df['label'] = df['label'].replace('positive', label_mapping['positive'])
+def encode(df, label_column='label'):
+    df[label_column] = df[label_column].replace('negative', label_mapping['negative'])
+    df[label_column] = df[label_column].replace('neutral', label_mapping['neutral'])
+    df[label_column] = df[label_column].replace('positive', label_mapping['positive'])
     return df
 
 
