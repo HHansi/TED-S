@@ -14,7 +14,7 @@ config = {
     'best_model_path': os.path.join(OUTPUT_DIRECTORY, "model", "best_model"),
 
     # 'embedding_size': 300,
-    'maxlen': 84,  # 72,  # max sequence length
+    'maxlen': 96,  # 72, 84  # max sequence length
     'max_features': None,  # how many unique words to use (i.e num rows in embedding vector)
     'batch_size': 64,  # 64, 8
     'n_epochs': 20,
