@@ -41,9 +41,23 @@ def remove_repeating_characters(sentence):
     return sentence.strip()
 
 
+def remove_retweet_notations(sentence):
+    """
+    Method to remove retweet notations in the given text
+    parameters
+    -----------
+    :param sentence: str
+    :return: str
+        String without retweet notations
+    """
+    updated_sentence = re.sub(r'RT @[a-zA-Z0-9_/-]*:', '', sentence)
+    return updated_sentence.strip()
+
+
 def preprocess_data(text):
     text = text.replace("\n", " ")
     text = remove_links(text, substitute='')
+    text = remove_retweet_notations(text)
     text = remove_repeating_characters(text)
     # tokenize and lower case
     tknzr = TweetTokenizer(preserve_case=False, reduce_len=True, strip_handles=False)
