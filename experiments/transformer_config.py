@@ -69,4 +69,6 @@ config = {
 
     "encoding": None,
     "sliding_window": False,
+
+    "labels_list": [0, 1, 2],
 }
