@@ -96,7 +96,7 @@ def predict(data_file_path):
     data['text'] = data['text'].apply(lambda x: preprocess_data(x))
 
     model = ClassificationModel(MODEL_TYPE, transformer_config.config["best_model_dir"], args=transformer_config.config,
-                                use_cuda=torch.cuda.is_available())
+                                use_cuda=torch.cuda.is_available(), num_labels=len(transformer_config.config['labels_list']))
     preds, raw_preds = model.predict(data['text'].tolist())
     # decode predicted labels
     preds = decode(preds)

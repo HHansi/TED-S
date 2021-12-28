@@ -204,8 +204,11 @@ def build_classification_dataset(data, tokenizer, args, mode, multi_label, outpu
         data = (examples, labels)
 
         if not args.no_cache:
-            logger.info(" Saving features into cached file %s", cached_features_file)
-            torch.save(data, cached_features_file)
+            try:
+                logger.info(" Saving features into cached file %s", cached_features_file)
+                torch.save(data, cached_features_file)
+            except FileNotFoundError as e:
+                logger.error(e)
 
     return (examples, labels)
 
