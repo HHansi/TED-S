@@ -8,6 +8,7 @@ import pandas as pd
 import torch
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.metrics import f1_score, recall_score, precision_score
+from scipy.special import softmax
 
 from algo.models.bert_classifier import ClassificationModel
 from algo.models.common.evaluate import get_eval_results, macro_f1, macro_recall, macro_precision
@@ -100,13 +101,14 @@ def predict(data_file_path):
     preds, raw_preds = model.predict(data['text'].tolist())
     # decode predicted labels
     preds = decode(preds)
+    raw_preds_probabilities = softmax(raw_preds, axis=1)
 
     eval_results = get_eval_results(data['label'].tolist(), preds)
     logger.info(eval_results)
 
     data['predictions'] = preds
     for i in reversed_label_mapping.keys():
-        data[reversed_label_mapping[i]] = raw_preds[:, i]
+        data[reversed_label_mapping[i]] = raw_preds_probabilities[:, i]
     data['id'] = data['id'].apply(lambda x: str(x))  # save id as a str to avoid round off by excel
     data.to_excel(os.path.join(PREDICTION_DIRECTORY, f'{file_name}.xlsx'), sheet_name='Sheet1', index=False)
 
