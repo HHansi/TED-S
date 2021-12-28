@@ -10,7 +10,7 @@ from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.metrics import f1_score, recall_score, precision_score
 
 from algo.models.bert_classifier import ClassificationModel
-from algo.models.common.evaluate import get_eval_results, macro_f1
+from algo.models.common.evaluate import get_eval_results, macro_f1, macro_recall, macro_precision
 from algo.models.common.label_encoder import encode, decode, reversed_label_mapping
 from algo.util.data_preprocessor import preprocess_data
 from algo.util.file_util import delete_create_folder, create_folder_if_not_exist
@@ -63,8 +63,7 @@ def train(train_file_path, dev_split=0.1, test_file_path=None):
     logger.info(f"Training model...")
     model = ClassificationModel(MODEL_TYPE, MODEL_NAME, args=transformer_config.config,
                                 use_cuda=torch.cuda.is_available(), num_labels=len(transformer_config.config['labels_list']))
-    model.train_model(train, eval_df=dev, macro_f1=macro_f1, f1=f1_score, recall=recall_score,
-                      precision=precision_score)
+    model.train_model(train, eval_df=dev, macro_f1=macro_f1, macro_recall=macro_recall, macro_precision=macro_precision)
 
     model = ClassificationModel(MODEL_TYPE, transformer_config.config["best_model_dir"], args=transformer_config.config,
                                 use_cuda=torch.cuda.is_available(), num_labels=len(transformer_config.config['labels_list']))
