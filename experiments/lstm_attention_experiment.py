@@ -91,4 +91,9 @@ if __name__ == '__main__':
     print('\n predictions 2')
     predict(test_file_path)
 
+    # munliv_annotation_path = os.path.join(BASE_PATH, 'data/munliv/munliv_annotations.tsv')
+    # # brexitvote_annotation_path = os.path.join(BASE_PATH, 'data/brexitvote/brexitvote_annotations.tsv')
+    # predict(munliv_annotation_path)
+
+
 
