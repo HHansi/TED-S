@@ -62,12 +62,12 @@ def train(train_file_path, dev_split=0.1, test_file_path=None):
     # train model
     logger.info(f"Training model...")
     model = ClassificationModel(MODEL_TYPE, MODEL_NAME, args=transformer_config.config,
-                                use_cuda=torch.cuda.is_available())
+                                use_cuda=torch.cuda.is_available(), num_labels=len(transformer_config.config['labels_list']))
     model.train_model(train, eval_df=dev, macro_f1=macro_f1, f1=f1_score, recall=recall_score,
                       precision=precision_score)
 
     model = ClassificationModel(MODEL_TYPE, transformer_config.config["best_model_dir"], args=transformer_config.config,
-                                use_cuda=torch.cuda.is_available())
+                                use_cuda=torch.cuda.is_available(), num_labels=len(transformer_config.config['labels_list']))
 
     # evaluate model
     if test_file_path is not None:

@@ -47,7 +47,7 @@ from transformers import (
     BertConfig,
     BertTokenizer,
     BertweetTokenizer,
-    RobertaConfig,
+    RobertaConfig, BertForSequenceClassification,
     # BertForSequenceClassification,
     # RobertaForSequenceClassification,
 )
@@ -75,7 +75,7 @@ from algo.models.common.transformer_classification_utils import (
 # from algo.config.model_args import ClassificationArgs
 # from algo.config.utils import sweep_config_to_sweep_values
 from algo.models.config.transformer_model_args import ClassificationArgs, sweep_config_to_sweep_values
-from algo.models.transformers.bert_model import BertForSequenceClassification
+# from algo.models.transformers.bert_model import BertForSequenceClassification
 
 try:
     import wandb
