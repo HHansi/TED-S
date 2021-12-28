@@ -12,3 +12,7 @@ def get_eval_results(actuals, predictions):
     results['f1'] = f1
     return results
 
+
+def macro_f1(y_true, y_pred):
+    return f1_score(y_true, y_pred, average='macro')
+
