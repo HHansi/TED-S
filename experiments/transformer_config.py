@@ -21,10 +21,10 @@ config = {
 
     'fp16': False,
     'fp16_opt_level': 'O1',
-    'max_seq_length': 96,
-    'train_batch_size': 8,
+    'max_seq_length': 84,  # 96
+    'train_batch_size': 16,  # 8
     'gradient_accumulation_steps': 1,
-    'eval_batch_size': 8,
+    'eval_batch_size': 16,  # 8
     'num_train_epochs': 3,
     'weight_decay': 0,
     'learning_rate': 1e-5,
@@ -34,14 +34,14 @@ config = {
     'max_grad_norm': 1.0,
     'do_lower_case': True,
 
-    'logging_steps': 400,  #40,
-    'save_steps': 400,  #40,
+    'logging_steps': 100,  #40,
+    'save_steps': 100,  #40,
     "no_cache": False,
     'save_model_every_epoch': True,
     "save_recent_only": True,
     # 'n_fold': 3,
     'evaluate_during_training': True,
-    'evaluate_during_training_steps': 400,  #40,
+    'evaluate_during_training_steps': 100,  #40,
     "evaluate_during_training_verbose": True,
     'use_cached_eval_features': False,
     'save_eval_checkpoints': True,
