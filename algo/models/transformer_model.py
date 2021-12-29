@@ -53,7 +53,7 @@ from transformers import (
 )
 from transformers.convert_graph_to_onnx import convert, quantize
 
-from algo.models.common.transformer_classification_utils import (
+from algo.models.common.transformer_utils import (
     LazyClassificationDataset,
     InputExample,
     convert_examples_to_features,
@@ -134,7 +134,7 @@ class ClassificationModel:
             # "albert": (AlbertConfig, AlbertForSequenceClassification, AlbertTokenizer),
             "auto": (AutoConfig, AutoModelForSequenceClassification, AutoTokenizer),
             "bert": (BertConfig, BertForSequenceClassification, BertTokenizer),
-            # "bertweet": (RobertaConfig, RobertaForSequenceClassification, BertweetTokenizer),
+            "bertweet": (RobertaConfig, RobertaForSequenceClassification, BertweetTokenizer),
             # "bigbird": (BigBirdConfig, BigBirdForSequenceClassification, BigBirdTokenizer),
             # "camembert": (CamembertConfig, CamembertForSequenceClassification, CamembertTokenizer),
             # "deberta": (DebertaConfig, DebertaForSequenceClassification, DebertaTokenizer),

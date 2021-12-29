@@ -32,7 +32,7 @@ from tensorflow.python.keras.utils import np_utils
 
 from algo.models.common.embedding_util import load_fasttext, load_concatenated_embeddings
 from algo.models.common.label_encoder import encode, decode
-from algo.models.common.layers import Attention
+from algo.models.common.nn_utils import Attention
 from algo.util.file_util import delete_create_folder
 
 logging.basicConfig(level=logging.INFO)

@@ -3,6 +3,7 @@
 import re
 
 from nltk import TweetTokenizer
+from sklearn.model_selection import StratifiedShuffleSplit
 
 puncts = [',', '.', '"', ':', ')', '(', '-', '!', '?', '|', ';', "'", '$', '&', '/', '[', ']', '>', '%', '=', '#', '*',
           '+', '\\', '•', '~', '@', '£',
@@ -69,3 +70,13 @@ def preprocess_data(text):
     # remove extra whitespace, newline, tab
     text = ' '.join(text.split())
     return text
+
+
+def split_data(df, seed, label_column='label', test_size=0.1):
+    y = df[label_column]
+    sss = StratifiedShuffleSplit(n_splits=1, test_size=test_size, random_state=seed)
+    train_index, test_index = next(sss.split(df, y))
+
+    train = df.iloc[train_index]
+    test = df.iloc[test_index]
+    return train, test
