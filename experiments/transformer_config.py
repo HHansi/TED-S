@@ -72,4 +72,5 @@ config = {
     "sliding_window": False,
 
     "labels_list": [0, 1, 2],
+    "dev_size": 0.1,
 }
