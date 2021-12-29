@@ -32,7 +32,9 @@ config = {
 
     # 'embedding_details': {'glove': 'F:/workspace-backup/Models/glove.840B.300d/glove.840B.300d.txt',
     #                       'fasttext': 'F:/workspace-backup/Models/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
-    'embedding_details': {'glove': '/content/glove.840B.300d/glove.840B.300d.txt',
-                          'fasttext': '/content/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
+    # 'embedding_details': {'glove': '/content/glove.840B.300d/glove.840B.300d.txt',
+    #                       'fasttext': '/content/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
+    'embedding_details': {'glove': '/home/rgcl-dl/Projects/TED-S/embedding_models/glove.840B.300d/glove.840B.300d.txt',
+                          'fasttext': '/home/rgcl-dl/Projects/TED-S/embedding_models/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
 
 }
