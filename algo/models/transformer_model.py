@@ -47,7 +47,7 @@ from transformers import (
     BertConfig,
     BertTokenizer,
     BertweetTokenizer,
-    RobertaConfig, BertForSequenceClassification,
+    RobertaConfig, BertForSequenceClassification, RobertaForSequenceClassification,
     # BertForSequenceClassification,
     # RobertaForSequenceClassification,
 )
