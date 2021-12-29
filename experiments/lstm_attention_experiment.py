@@ -7,8 +7,8 @@ from sklearn.model_selection import StratifiedShuffleSplit
 # from algo.models.lstm_attention import LSTMModel
 from algo.models.common.evaluate import get_eval_results
 from algo.models.common.label_encoder import reversed_label_mapping
-from algo.models.lstm import LSTMModel
-from algo.util.data_preprocessor import preprocess_data
+from algo.models.lstm_model import LSTMModel
+from algo.util.data_processor import preprocess_data
 from algo.util.file_util import delete_create_folder, create_folder_if_not_exist
 from experiments import lstm_config
 from experiments.lstm_config import SEED, BASE_PATH, PREDICTION_DIRECTORY
