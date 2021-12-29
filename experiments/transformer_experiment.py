@@ -114,12 +114,14 @@ def predict(data_file_path):
 
 
 if __name__ == '__main__':
-    train_file_path = os.path.join(BASE_PATH, 'data/fifa_2014/train.tsv')
-    test_file_path = os.path.join(BASE_PATH, 'data/fifa_2014/test.tsv')
+    # train_file_path = os.path.join(BASE_PATH, 'data/fifa_2014/train.tsv')
+    # test_file_path = os.path.join(BASE_PATH, 'data/fifa_2014/test.tsv')
+    train_file_path = os.path.join(BASE_PATH, 'data/semeval_data/train.tsv')
+    test_file_path = os.path.join(BASE_PATH, 'data/semeval_data/test.tsv')
     train(train_file_path, test_file_path=test_file_path)
 
     # predict(test_file_path)
 
     munliv_annotation_path = os.path.join(BASE_PATH, 'data/munliv/munliv_annotations.tsv')
     # brexitvote_annotation_path = os.path.join(BASE_PATH, 'data/brexitvote/brexitvote_annotations.tsv')
-    predict(munliv_annotation_path)
+    # predict(munliv_annotation_path)
