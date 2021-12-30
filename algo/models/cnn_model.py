@@ -153,7 +153,7 @@ class CNNModel:
                        epochs=self.args.num_train_epochs,
                        validation_data=(self.X_dev, self.y_dev), verbose=2,
                        callbacks=callbacks, )
-        self.model.load_weights(self.args.best_model_path)
+        self.model.load_weights(os.path.join(self.args.model_dir, 'model.h5'))
 
         # save model args and tokenizer
         self.args.save(self.args.model_dir)
