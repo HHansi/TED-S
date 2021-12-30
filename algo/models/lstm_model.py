@@ -17,7 +17,7 @@ from tensorflow.python.keras.utils import np_utils
 
 from algo.models.common.embedding_util import load_concatenated_embeddings
 from algo.models.common.nn_utils import Attention
-from algo.models.config.lstm_model_args import ClassificationArgs
+from algo.models.config.nn_model_args import ClassificationArgs
 from algo.util.file_util import delete_create_folder
 
 logging.basicConfig(level=logging.INFO)
