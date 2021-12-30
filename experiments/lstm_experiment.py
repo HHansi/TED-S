@@ -119,7 +119,7 @@ def predict(data_file_path, predictions_folder, evaluate=True):
     for i in reversed_label_mapping.keys():
         data[reversed_label_mapping[i]] = raw_preds[:, i]
     data['id'] = data['id'].apply(lambda x: str(x))  # save id as a str to avoid round off by excel
-    data.to_excel(os.path.join(PREDICTION_DIRECTORY, f'{file_name}.xlsx'), sheet_name='Sheet1', index=False)
+    data.to_excel(os.path.join(predictions_folder, f'{file_name}.xlsx'), sheet_name='Sheet1', index=False)
 
 
 if __name__ == '__main__':
