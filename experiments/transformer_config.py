@@ -10,8 +10,8 @@ OUTPUT_DIRECTORY = os.path.join(BASE_PATH, 'output')
 
 PREDICTION_DIRECTORY = os.path.join(OUTPUT_DIRECTORY, 'predictions')
 
-MODEL_TYPE = "bert"
-MODEL_NAME = "bert-base-uncased"
+MODEL_TYPE = "bertweet"  # "bert"
+MODEL_NAME = "vinai/bertweet-base"  # "bert-base-uncased"
 
 
 config = {
