@@ -8,7 +8,7 @@ from dataclasses import asdict, field, dataclass
 @dataclass
 class ModelArgs:
     model_dir: str = "output/best_model"
-    best_model_path: str = os.path.join(model_dir, 'lstm_weights_best.h5')
+    best_model_path: str = os.path.join(model_dir, 'weights_best.h5')
     cache_dir: str = "cache_dir/"
 
     early_stopping: bool = True
