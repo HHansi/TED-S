@@ -96,7 +96,7 @@ def train(train_file_paths, test_file_paths=None, predictions_folder=None):
             raw_preds_probabilities = softmax(raw_preds, axis=1)
 
             # evaluate results
-            eval_results = get_eval_results(data['label'].tolist(), preds)
+            eval_results = get_eval_results(test_data['label'].tolist(), preds)
             logger.info(f'{test_path} results: {eval_results}')
 
             if predictions_folder is not None:
