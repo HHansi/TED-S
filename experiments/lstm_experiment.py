@@ -81,7 +81,7 @@ def train(train_file_paths, test_file_paths=None, predictions_folder=None):
             preds = decode(preds)
 
             # evaluate results
-            eval_results = get_eval_results(data['label'].tolist(), preds)
+            eval_results = get_eval_results(test_data['label'].tolist(), preds)
             logger.info(f'{test_path} results: {eval_results}')
 
             if predictions_folder is not None:
