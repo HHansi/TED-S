@@ -5,9 +5,9 @@ import os
 import pandas as pd
 from sklearn.utils import shuffle
 
-from algo.models.common.evaluate import get_eval_results
-from algo.models.common.label_encoder import reversed_label_mapping, encode, decode
-from algo.models.lstm_model import LSTMModel
+from algo.models.nn.nn_model import NNModel
+from algo.util.evaluate import get_eval_results
+from algo.util.label_encoder import reversed_label_mapping, encode, decode
 from algo.util.data_processor import preprocess_data, split_data
 from algo.util.file_util import delete_create_folder, create_folder_if_not_exist
 from experiments import lstm_config
@@ -61,8 +61,8 @@ def train(train_file_paths, test_file_paths=None, predictions_folder=None):
 
     # train model
     logger.info(f"Training model...")
-    model = LSTMModel(args=lstm_config.config)
-    model.train(new_data_dir)
+    model = NNModel('lstm', data_dir=new_data_dir, args=lstm_config.config)
+    model.train()
 
     # evaluate model
     if test_file_paths is not None:
@@ -106,7 +106,7 @@ def predict(data_file_path, predictions_folder, evaluate=True):
     data = data.rename({'tweet': 'text'}, axis=1)
     data['text'] = data['text'].apply(lambda x: preprocess_data(x))
 
-    model = LSTMModel(lstm_config.config)
+    model = NNModel(lstm_config.config['best_model_dir'])
     preds, raw_preds = model.predict(data['text'].tolist())
     # decode predicted labels
     preds = decode(preds)
