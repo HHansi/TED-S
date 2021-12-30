@@ -53,7 +53,7 @@ from transformers import (
 )
 from transformers.convert_graph_to_onnx import convert, quantize
 
-from algo.models.common.transformer_utils import (
+from algo.models.transformer.transformer_utils import (
     LazyClassificationDataset,
     InputExample,
     convert_examples_to_features,
@@ -74,7 +74,7 @@ from algo.models.common.transformer_utils import (
 # from algo.classification.transformer_models.xlnet_model import XLNetForSequenceClassification
 # from algo.config.model_args import ClassificationArgs
 # from algo.config.utils import sweep_config_to_sweep_values
-from algo.models.config.transformer_model_args import ClassificationArgs, sweep_config_to_sweep_values
+from algo.models.transformer.transformer_args import ClassificationArgs, sweep_config_to_sweep_values
 # from algo.models.transformers.bert_model import BertForSequenceClassification
 
 try:
