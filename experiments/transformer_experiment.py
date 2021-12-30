@@ -34,6 +34,7 @@ def train(train_file_paths, test_file_paths=None, predictions_folder=None):
     :param predictions_folder:
     :return:
     """
+    delete_create_folder(transformer_config.OUTPUT_DIRECTORY)
     new_data_dir = os.path.join(transformer_config.OUTPUT_DIRECTORY, f"data")
     delete_create_folder(new_data_dir)
 
