@@ -35,6 +35,8 @@ class ModelArgs:
     train_file: str = 'train.tsv'
     dev_file: str = 'dev.tsv'
 
+    not_saved_args: list = field(default_factory=list)
+
     def update_from_dict(self, new_values):
         if isinstance(new_values, dict):
             for key, value in new_values.items():

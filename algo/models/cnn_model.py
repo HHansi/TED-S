@@ -30,9 +30,11 @@ class CNNModel:
         if os.path.isdir(model_type_or_path):
             self.args = self._load_model_args(model_type_or_path)
             set_random_seed(self.args.manual_seed)
+
             with open(os.path.join(self.args.model_dir, 'tokenizer.pickle'), 'rb') as handle:
-                self.tokenizer = pickle.load(handle)
-            self.model = load_model(model_type_or_path)
+                tokenizer = pickle.load(handle)
+            self.tokenizer = tokenizer
+            self.model = load_model(os.path.join(model_type_or_path, 'model.h5'))
 
         elif args:
             self.args = ClassificationArgs()
@@ -134,7 +136,7 @@ class CNNModel:
         # self.model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
         # logger.info(self.model.summary())
 
-        checkpoint = ModelCheckpoint(self.args.best_model_path, monitor='val_loss', verbose=2, save_best_only=True,
+        checkpoint = ModelCheckpoint(os.path.join(self.args.model_dir, 'model.h5'), monitor='val_loss', verbose=2, save_best_only=True,
                                      mode='min')
         callbacks = [checkpoint]
         if self.args.reduce_lr_on_plateau:
@@ -181,6 +183,7 @@ class CNNModel:
         # pad the sentences
         X = pad_sequences(X, maxlen=self.args.max_len, padding='post', truncating='post')
         return X
+
 
     @staticmethod
     def _load_model_args(input_dir):

@@ -107,7 +107,7 @@ def predict(data_file_path, predictions_folder, evaluate=True):
     data = data.rename({'tweet': 'text'}, axis=1)
     data['text'] = data['text'].apply(lambda x: preprocess_data(x))
 
-    model = CNNModel(cnn_config.config['best_model_path'])
+    model = CNNModel(cnn_config.config['model_dir'])
     preds, raw_preds = model.predict(data['text'].tolist())
     # decode predicted labels
     preds = decode(preds)
