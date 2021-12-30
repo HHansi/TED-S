@@ -46,6 +46,7 @@ class LSTMModel:
         self.tokenizer = None
         self.model = None
 
+        self.args = ClassificationArgs()
         if isinstance(args, dict):
             self.args.update_from_dict(args)
         elif isinstance(args, ClassificationArgs):
