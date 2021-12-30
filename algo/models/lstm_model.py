@@ -9,11 +9,7 @@ from keras.utils.tf_utils import set_random_seed
 from numpy import argmax
 from tensorflow import keras
 from tensorflow.keras import layers
-# import keras.backend as K
-# from keras.layers import Dense
-# from tensorflow.python.keras import Input, Model
 from tensorflow.python.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
-# from tensorflow.python.keras.layers import Embedding, Bidirectional, LSTM, Dense
 from tensorflow.python.keras.models import load_model
 from tensorflow.python.keras.preprocessing.sequence import pad_sequences
 from tensorflow.python.keras.preprocessing.text import Tokenizer
@@ -23,19 +19,6 @@ from algo.models.common.embedding_util import load_concatenated_embeddings
 from algo.models.common.nn_utils import Attention
 from algo.models.config.lstm_model_args import ClassificationArgs
 from algo.util.file_util import delete_create_folder
-
-# import keras.backend as K
-# from keras import regularizers, constraints
-# from tensorflow import initializers
-# from tensorflow.python.keras import Input
-# from tensorflow.python.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
-# from tensorflow.python.keras.layers import Embedding, LSTM, Bidirectional, Dense
-# from tensorflow.python.keras.models import Model
-# from tensorflow.python.keras.preprocessing.sequence import pad_sequences
-# from tensorflow.python.keras.preprocessing.text import Tokenizer
-# from tensorflow.python.keras.saving.save import load_model
-# from tensorflow.python.keras.utils import np_utils
-# from tensorflow.python.layers.base import Layer
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -69,10 +52,6 @@ class LSTMModel:
         train_df = pd.read_csv(os.path.join(data_dir, self.args.train_file), sep="\t", encoding="utf-8")
         dev_df = pd.read_csv(os.path.join(data_dir, self.args.dev_file), sep="\t", encoding="utf-8")
 
-        # # encode labels
-        # train_df = encode(train_df)
-        # dev_df = encode(dev_df)
-
         X_train = train_df['text'].tolist()
         y_train = train_df['labels'].tolist()
         X_dev = dev_df['text'].tolist()
@@ -95,24 +74,11 @@ class LSTMModel:
         word_index = self.tokenizer.word_index
         self.args.max_features = len(word_index) + 1
 
-        # embedding_matrix, embedding_size = load_fasttext(self.args['embedding_file'], word_index, self.args['max_features'])
         embedding_matrix, embedding_size = load_concatenated_embeddings(self.args.embedding_details, word_index,
                                                                         self.args.max_features)
 
         # define model structure
-        # K.clear_session()
-        # inp = Input(shape=(self.args['maxlen'],))
-        # x = Embedding(self.args['max_features'], embedding_size, weights=[embedding_matrix], trainable=False)(inp)
-        # x = Bidirectional(LSTM(64, return_sequences=True))(x)
-        # x = Bidirectional(LSTM(64))(x)
-        # # x = Bidirectional(LSTM(64, return_sequences=True))(x)
-        # # x = Attention(self.args['maxlen'])(x)
-        # x = Dense(256, activation="relu")(x)
-        # # x = Dropout(0.25)(x)
-        # x = Dense(len(self.args['label_list']), activation="softmax")(x)
-        # self.model = Model(inputs=inp, outputs=x)
-
-        inp = tf.keras.Input(shape=(None,), dtype="int64", name="input")
+        inp = tf.keras.Input(shape=(self.args.max_len,), dtype="int64", name="input")
         x = layers.Embedding(self.args.max_features, embedding_size,
                              embeddings_initializer=keras.initializers.Constant(embedding_matrix), trainable=False,
                              name="embedding_layer")(inp)
@@ -126,7 +92,6 @@ class LSTMModel:
         self.model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
         logger.info(self.model.summary())
 
-        # best_weights_path = os.path.join(self.args['model_dir'], 'lstm_attention_weights_best.h5')
         checkpoint = ModelCheckpoint(self.args.best_model_path, monitor='val_loss', verbose=2, save_best_only=True,
                                      mode='min')
         callbacks = [checkpoint]
@@ -140,8 +105,6 @@ class LSTMModel:
                                           patience=self.args.early_stopping_patience, verbose=2, mode='auto')
             callbacks.append(earlystopping)
 
-        # callbacks = [checkpoint, reduce_lr, earlystopping]
-
         self.model.fit(X_train, y_train, batch_size=self.args.train_batch_size, epochs=self.args.num_train_epochs,
                        validation_data=(X_dev, y_dev), verbose=2,
                        callbacks=callbacks, )
@@ -153,14 +116,11 @@ class LSTMModel:
             with open(os.path.join(self.args.model_dir, 'tokenizer.pickle'), 'rb') as handle:
                 self.tokenizer = pickle.load(handle)
             # load model
-            # best_weights_path = os.path.join(self.args['model_dir'], 'lstm_attention_weights_best.h5')
             self.model = load_model(self.args.best_model_path, custom_objects={'Attention': Attention})
 
         X_test = self.process_data(texts)
 
         raw_y_pred = self.model.predict([X_test], batch_size=self.args.test_batch_size, verbose=2)
         y_pred = [argmax(y) for y in raw_y_pred]
-
-        # preds = decode(y_pred)
 
         return y_pred, raw_y_pred

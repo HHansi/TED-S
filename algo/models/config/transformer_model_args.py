@@ -34,7 +34,7 @@ def sweep_config_to_sweep_values(sweep_config):
 @dataclass
 class ModelArgs:
     adam_epsilon: float = 1e-8
-    best_model_dir: str = "outputs/best_model"
+    best_model_dir: str = "output/best_model"
     cache_dir: str = "cache_dir/"
     config: dict = field(default_factory=dict)
     cosine_schedule_num_cycles: float = 0.5

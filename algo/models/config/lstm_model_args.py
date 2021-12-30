@@ -26,7 +26,7 @@ class ModelArgs:
 
     reduce_lr_on_plateau: bool = True
     reduce_lr_on_plateau_factor: float = 0.6
-    reduce_lr_on_plateau_patience: int = 1  # 2
+    reduce_lr_on_plateau_patience: int = 2  # 1
     reduce_lr_on_plateau_min_lr: float = 0.0001
 
     test_batch_size: int = 128
