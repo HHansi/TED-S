@@ -47,15 +47,15 @@ class CNN2D:
                              name="embedding_layer")(inp)
 
         x = layers.SpatialDropout1D(0.4, name="spatial_dropout_layer")(x)
-        x = layers.Reshape((args.max_len, args.embed_size, 1), name="reshape_layer")(x)
+        x = layers.Reshape((args.max_len, args.embedding_size, 1), name="reshape_layer")(x)
 
-        conv_0 = layers.Conv2D(num_filters, kernel_size=(filter_sizes[0], args.embed_size), kernel_initializer='normal',
+        conv_0 = layers.Conv2D(num_filters, kernel_size=(filter_sizes[0], args.embedding_size), kernel_initializer='normal',
                         activation='elu', name="conv0_layer")(x)
-        conv_1 = layers.Conv2D(num_filters, kernel_size=(filter_sizes[1], args.embed_size), kernel_initializer='normal',
+        conv_1 = layers.Conv2D(num_filters, kernel_size=(filter_sizes[1], args.embedding_size), kernel_initializer='normal',
                         activation='elu', name="conv1_layer")(x)
-        conv_2 = layers.Conv2D(num_filters, kernel_size=(filter_sizes[2], args.embed_size), kernel_initializer='normal',
+        conv_2 = layers.Conv2D(num_filters, kernel_size=(filter_sizes[2], args.embedding_size), kernel_initializer='normal',
                         activation='elu', name="conv2_layer")(x)
-        conv_3 = layers.Conv2D(num_filters, kernel_size=(filter_sizes[3], args.embed_size), kernel_initializer='normal',
+        conv_3 = layers.Conv2D(num_filters, kernel_size=(filter_sizes[3], args.embedding_size), kernel_initializer='normal',
                         activation='elu', name="conv3_layer")(x)
 
         maxpool_0 = layers.MaxPool2D(pool_size=(args.max_len - filter_sizes[0] + 1, 1), name="pool0_layer")(conv_0)
