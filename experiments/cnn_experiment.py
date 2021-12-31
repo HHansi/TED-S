@@ -62,7 +62,7 @@ def train(train_file_paths, test_file_paths=None, predictions_folder=None):
 
     # train model
     logger.info(f"Training model...")
-    model = NNModel('cnn', args=cnn_config.config, data_dir=new_data_dir)
+    model = NNModel('cnn2D', args=cnn_config.config, data_dir=new_data_dir)
     model.train()
 
     # evaluate model
