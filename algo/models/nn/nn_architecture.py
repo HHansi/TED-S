@@ -66,5 +66,5 @@ class CNN2D:
         z = layers.Concatenate(axis=1, name="conc_layer")([maxpool_0, maxpool_1, maxpool_2, maxpool_3])
         z = layers.Flatten(name="flatten_layer")(z)
         z = layers.Dropout(0.1, name="dropout_layer")(z)
-        outp = layers.Dense(args.num_classes, activation="softmax", name="dense_predictions")(z)
+        outp = layers.Dense(len(args.labels_list), activation="softmax", name="dense_predictions")(z)
         self.model = tf.keras.Model(inputs=inp, outputs=outp, name="cnn_model")

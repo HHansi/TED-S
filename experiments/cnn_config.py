@@ -36,5 +36,6 @@ config = {
     #                       'fasttext': 'F:/workspace-backup/Models/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
     # 'embedding_details': {'glove': '/content/glove.840B.300d/glove.840B.300d.txt',
     #                       'fasttext': '/content/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
+    'embedding_details': {'fasttext': '/content/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
 
 }
