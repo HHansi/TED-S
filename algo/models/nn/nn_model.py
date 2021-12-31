@@ -14,9 +14,9 @@ from tensorflow.python.keras.preprocessing.sequence import pad_sequences
 from tensorflow.python.keras.preprocessing.text import Tokenizer
 from tensorflow.python.keras.utils import np_utils
 
-from algo.models.common.embedding_util import load_concatenated_embeddings
 from algo.models.nn.nn_args import ClassificationArgs
 from algo.models.nn.nn_architecture import LSTM, CNN1D, CNN2D
+from algo.models.nn.nn_util import load_embeddings
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -71,8 +71,8 @@ class NNModel:
             word_index = self.tokenizer.word_index
             self.args.max_features = len(word_index) + 1
 
-            embedding_matrix, embedding_size = load_concatenated_embeddings(self.args.embedding_details, word_index,
-                                                                            self.args.max_features)
+            embedding_matrix, embedding_size = load_embeddings(self.args.embedding_details, word_index,
+                                                               self.args.max_features)
             self.args.embedding_size = embedding_size
             self.args.model_name = model_type_or_path
             self.model = MODEL_CLASSES[model_type_or_path](self.args, embedding_matrix).model
