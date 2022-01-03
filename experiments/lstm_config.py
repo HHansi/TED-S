@@ -34,6 +34,7 @@ config = {
     # 'glove_embedding_file': 'F:/workspace-backup/Models/glove.840B.300d/glove.840B.300d.txt',
 
     'labels_list': ['positive', 'negative', 'neutral'],
+    'emoji_to_text': False,
 
     # 'embedding_details': {'glove': 'F:/workspace-backup/Models/glove.840B.300d/glove.840B.300d.txt',
     #                       'fasttext': 'F:/workspace-backup/Models/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},

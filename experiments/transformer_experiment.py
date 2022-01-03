@@ -59,8 +59,9 @@ def train(train_file_paths, test_file_paths=None, predictions_folder=None):
     dev = encode(dev, label_column='labels')
 
     # preprocess data
-    train['text'] = train['text'].apply(lambda x: preprocess_data(x))
-    dev['text'] = dev['text'].apply(lambda x: preprocess_data(x))
+    preserve_case = not transformer_config.config['do_lower_case']
+    train['text'] = train['text'].apply(lambda x: preprocess_data(x, preserve_case=preserve_case))
+    dev['text'] = dev['text'].apply(lambda x: preprocess_data(x, preserve_case=preserve_case))
 
     logger.info(f"Train instances: {train.shape[0]}")
     logger.info(f"Dev instances: {dev.shape[0]}")
@@ -86,7 +87,7 @@ def train(train_file_paths, test_file_paths=None, predictions_folder=None):
 
             # format and preprocess data
             test_data = test_data.rename({'tweet': 'text'}, axis=1)
-            test_data['text'] = test_data['text'].apply(lambda x: preprocess_data(x))
+            test_data['text'] = test_data['text'].apply(lambda x: preprocess_data(x, preserve_case=preserve_case))
 
             # get model predictions
             preds, raw_preds = model.predict(test_data['text'].tolist())
@@ -118,7 +119,8 @@ def predict(data_file_path, predictions_folder, evaluate=True):
 
     data = pd.read_csv(data_file_path, sep="\t", encoding="utf-8")
     data = data.rename({'tweet': 'text'}, axis=1)
-    data['text'] = data['text'].apply(lambda x: preprocess_data(x))
+    preserve_case = not transformer_config.config['do_lower_case']
+    data['text'] = data['text'].apply(lambda x: preprocess_data(x, preserve_case=preserve_case))
 
     model = ClassificationModel(MODEL_TYPE, transformer_config.config["best_model_dir"], args=transformer_config.config,
                                 use_cuda=torch.cuda.is_available(),

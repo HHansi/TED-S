@@ -2,6 +2,7 @@
 
 import re
 
+import demoji
 from nltk import TweetTokenizer
 from sklearn.model_selection import StratifiedShuffleSplit
 
@@ -55,13 +56,23 @@ def remove_retweet_notations(sentence):
     return updated_sentence.strip()
 
 
-def preprocess_data(text):
+def add_emoji_text(x):
+    emoji_text = demoji.findall(x)
+    for em in emoji_text.keys():
+        x = x.replace(em, ' ' + emoji_text[em] + ' ')
+    x = ' '.join(x.split())
+    return x
+
+
+def preprocess_data(text, preserve_case=False, emoji_to_text=False):
     text = text.replace("\n", " ")
     text = remove_links(text, substitute='')
     text = remove_retweet_notations(text)
     text = remove_repeating_characters(text)
+    if emoji_to_text:
+       text = add_emoji_text(text)
     # tokenize and lower case
-    tknzr = TweetTokenizer(preserve_case=False, reduce_len=True, strip_handles=False)
+    tknzr = TweetTokenizer(preserve_case=preserve_case, reduce_len=True, strip_handles=False)
     tokens = tknzr.tokenize(text)
     text = " ".join(tokens)
     # text.replace(symbol, "#")  # remove # in hash tags
@@ -80,3 +91,5 @@ def split_data(df, seed, label_column='label', test_size=0.1):
     train = df.iloc[train_index]
     test = df.iloc[test_index]
     return train, test
+
+

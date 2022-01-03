@@ -52,8 +52,8 @@ def train(train_file_paths, test_file_paths=None, predictions_folder=None):
     dev = encode(dev, label_column='labels')
 
     # preprocess data
-    train['text'] = train['text'].apply(lambda x: preprocess_data(x))
-    dev['text'] = dev['text'].apply(lambda x: preprocess_data(x))
+    train['text'] = train['text'].apply(lambda x: preprocess_data(x, preserve_case=False, emoji_to_text=cnn_config.config['emoji_to_text']))
+    dev['text'] = dev['text'].apply(lambda x: preprocess_data(x, preserve_case=False, emoji_to_text=cnn_config.config['emoji_to_text']))
 
     train.to_csv(os.path.join(new_data_dir, cnn_config.config['train_file']), sep="\t", index=False)
     logger.info(f"Saved {train.shape[0]} train instances.")
@@ -75,7 +75,7 @@ def train(train_file_paths, test_file_paths=None, predictions_folder=None):
 
             # format and preprocess data
             test_data = test_data.rename({'tweet': 'text'}, axis=1)
-            test_data['text'] = test_data['text'].apply(lambda x: preprocess_data(x))
+            test_data['text'] = test_data['text'].apply(lambda x: preprocess_data(x, preserve_case=False, emoji_to_text=cnn_config.config['emoji_to_text']))
 
             # get model predictions
             preds, raw_preds = model.predict(test_data['text'].tolist())
@@ -105,7 +105,7 @@ def predict(data_file_path, predictions_folder, evaluate=True):
 
     data = pd.read_csv(data_file_path, sep="\t", encoding="utf-8")
     data = data.rename({'tweet': 'text'}, axis=1)
-    data['text'] = data['text'].apply(lambda x: preprocess_data(x))
+    data['text'] = data['text'].apply(lambda x: preprocess_data(x, preserve_case=False, emoji_to_text=cnn_config.config['emoji_to_text']))
 
     model = NNModel(cnn_config.config['best_model_dir'])
     preds, raw_preds = model.predict(data['text'].tolist())
