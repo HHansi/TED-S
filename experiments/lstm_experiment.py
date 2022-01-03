@@ -134,7 +134,7 @@ if __name__ == '__main__':
     predictions_folder = lstm_config.PREDICTION_DIRECTORY
 
     train_file_paths = [fifa_train_file]
-    test_file_paths = [fifa_test_file, munliv_test_file]
+    test_file_paths = [fifa_test_file, munliv_test_file, semeval_test_file]
     train(train_file_paths, test_file_paths=test_file_paths, predictions_folder=predictions_folder)
 
     munliv_annotation_file = os.path.join(BASE_PATH, 'data/munliv/munliv_annotations.tsv')
