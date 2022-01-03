@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 #     return embedding_matrix, total_embed_size
 
 
-def load_concatenated_embeddings(dict_embedding_details, word_index, max_features):
+def load_embeddings(dict_embedding_details, word_index, max_features):
     """
 
     :param dict_embedding_details: {name:file_path}

@@ -7,8 +7,9 @@ from dataclasses import asdict, field, dataclass
 
 @dataclass
 class ModelArgs:
-    model_dir: str = "output/best_model"
-    best_model_path: str = os.path.join(model_dir, 'weights_best.h5')
+    best_model_dir: str = "output/best_model"
+    # best_model_path: str = os.path.join(model_dir, 'weights_best.h5')
+    model_name: str = None
     cache_dir: str = "cache_dir/"
 
     early_stopping: bool = True
@@ -21,6 +22,7 @@ class ModelArgs:
 
     max_features: int = None
     max_len: int = 256
+    embedding_size: int = None
 
     num_train_epochs: int = 20
 

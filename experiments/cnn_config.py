@@ -11,8 +11,8 @@ SEED = 157
 
 config = {
     'manual_seed': SEED,
-    'model_dir': os.path.join(OUTPUT_DIRECTORY, "model"),
-    'best_model_name': "cnn_weights_best.h5",
+    'best_model_dir': os.path.join(OUTPUT_DIRECTORY, "model"),
+    # 'best_model_name': "cnn_weights_best.h5",
 
     'max_len': 84,  # 72, 96  # max sequence length
     'max_features': None,  # how many unique words to use (i.e num rows in embedding vector)
@@ -36,5 +36,6 @@ config = {
     #                       'fasttext': 'F:/workspace-backup/Models/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
     # 'embedding_details': {'glove': '/content/glove.840B.300d/glove.840B.300d.txt',
     #                       'fasttext': '/content/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
+    'embedding_details': {'fasttext': '/content/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
 
 }

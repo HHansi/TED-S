@@ -9,9 +9,9 @@ import torch
 from scipy.special import softmax
 from sklearn.utils import shuffle
 
-from algo.models.common.evaluate import get_eval_results, macro_f1, macro_recall, macro_precision
-from algo.models.common.label_encoder import encode, decode, reversed_label_mapping
-from algo.models.transformer_model import ClassificationModel
+from algo.util.evaluate import get_eval_results, macro_f1, macro_recall, macro_precision
+from algo.util.label_encoder import encode, decode, reversed_label_mapping
+from algo.models.transformer.transformer_model import ClassificationModel
 from algo.util.data_processor import preprocess_data, split_data
 from algo.util.file_util import delete_create_folder, create_folder_if_not_exist
 from experiments import transformer_config
