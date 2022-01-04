@@ -149,10 +149,12 @@ if __name__ == '__main__':
     semeval_test_file = os.path.join(BASE_PATH, 'data/semeval_data/test.tsv')
     munliv_train_file = os.path.join(BASE_PATH, 'data/munliv/munliv_train.tsv')
     munliv_test_file = os.path.join(BASE_PATH, 'data/munliv/munliv_test.tsv')
+    brexitvote_train_file = os.path.join(BASE_PATH, 'data/brexitvote/brexitvote_train.tsv')
+    brexitvote_test_file = os.path.join(BASE_PATH, 'data/brexitvote/brexitvote_test.tsv')
     predictions_folder = transformer_config.PREDICTION_DIRECTORY
 
     train_file_paths = [fifa_train_file]
-    test_file_paths = [fifa_test_file, munliv_test_file, semeval_test_file]
+    test_file_paths = [fifa_test_file, munliv_test_file, semeval_test_file, brexitvote_test_file]
     train(train_file_paths, test_file_paths=test_file_paths, predictions_folder=predictions_folder)
 
     munliv_annotation_file = os.path.join(BASE_PATH, 'data/munliv/munliv_annotations.tsv')
