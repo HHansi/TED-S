@@ -144,3 +144,6 @@ if __name__ == '__main__':
     predict(munliv_annotation_file, predictions_folder)
     brexitvote_annotation_file = os.path.join(BASE_PATH, 'data/brexitvote/brexitvote_annotations.tsv')
     predict(brexitvote_annotation_file, predictions_folder)
+
+    munlive_file = os.path.join(BASE_PATH, 'data/munliv/munliv-15.28-17.23.tsv')
+    predict(munlive_file, predictions_folder)
