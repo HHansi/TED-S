@@ -13,7 +13,7 @@ config = {
     'best_model_dir': os.path.join(OUTPUT_DIRECTORY, "model"),
     # 'best_model_path': os.path.join(OUTPUT_DIRECTORY, "model", "lstm_weights_best.h5"),  # lstm_attention_weights_best.h5
 
-    'max_len': 84,  # 72, 96  # max sequence length
+    'max_len': 96,  # 72, 96  # max sequence length
     'max_features': None,  # how many unique words to use (i.e num rows in embedding vector)
     'num_train_epochs': 20,
 
