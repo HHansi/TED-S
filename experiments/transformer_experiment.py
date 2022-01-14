@@ -165,7 +165,7 @@ if __name__ == '__main__':
     munlive_file = os.path.join(BASE_PATH, 'data/munliv/munliv-15.28-17.23.tsv')
     predict(munlive_file, predictions_folder, evaluate=False)
     munlive_file_no_dups = os.path.join(BASE_PATH, 'data/munliv/munliv-15.28-17.23-no_duplicates.tsv')
-    predict(munlive_file, predictions_folder, evaluate=False)
+    predict(munlive_file_no_dups, predictions_folder, evaluate=False)
 
     brexitvote_file = os.path.join(BASE_PATH, 'data/brexitvote/brexitvote-08.00-13.59.tsv')
     predict(brexitvote_file, predictions_folder, evaluate=False)
