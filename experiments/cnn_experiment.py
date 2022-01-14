@@ -138,12 +138,19 @@ if __name__ == '__main__':
 
     train_file_paths = [fifa_train_file]
     test_file_paths = [fifa_test_file, munliv_test_file, semeval_test_file, brexitvote_test_file]
-    train(train_file_paths, test_file_paths=test_file_paths, predictions_folder=predictions_folder)
+    # train(train_file_paths, test_file_paths=test_file_paths, predictions_folder=predictions_folder)
 
     munliv_annotation_file = os.path.join(BASE_PATH, 'data/munliv/munliv_annotations.tsv')
     predict(munliv_annotation_file, predictions_folder)
-    brexitvote_annotation_file = os.path.join(BASE_PATH, 'data/brexitvote/brexitvote_annotations.tsv')
-    predict(brexitvote_annotation_file, predictions_folder)
+    # brexitvote_annotation_file = os.path.join(BASE_PATH, 'data/brexitvote/brexitvote_annotations.tsv')
+    # predict(brexitvote_annotation_file, predictions_folder)
 
     munlive_file = os.path.join(BASE_PATH, 'data/munliv/munliv-15.28-17.23.tsv')
-    predict(munlive_file, predictions_folder)
+    predict(munlive_file, predictions_folder, evaluate=False)
+    munlive_file_no_dups = os.path.join(BASE_PATH, 'data/munliv/munliv-15.28-17.23-no_duplicates.tsv')
+    predict(munlive_file, predictions_folder, evaluate=False)
+
+    brexitvote_file = os.path.join(BASE_PATH, 'data/brexitvote/brexitvote-08.00-13.59.tsv')
+    predict(brexitvote_file, predictions_folder, evaluate=False)
+    brexitvote_file_no_dups = os.path.join(BASE_PATH, 'data/brexitvote/brexitvote-08.00-13.59-no_duplicates.tsv')
+    predict(brexitvote_file_no_dups, predictions_folder, evaluate=False)
