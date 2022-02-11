@@ -11,7 +11,7 @@ def load_embeddings(dict_embedding_details, word_index, max_features):
     """
     Load embeddings to a matrix
     If multiple embedding details are provided with dict_embedding_details, their concatenation will be used.
-    For tokens which are unknown to some embedding models will use a vector of 0s as the embedding.
+    For tokens which are unknown to some embedding models, use a vector of 0s as the embedding.
 
     :param dict_embedding_details: {name:file_path}
         dictionary of unique name to refer to the embedding and path to embedding model
