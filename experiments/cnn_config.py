@@ -12,17 +12,16 @@ SEED = 157
 config = {
     'manual_seed': SEED,
     'best_model_dir': os.path.join(OUTPUT_DIRECTORY, "model"),
-    # 'best_model_name': "cnn_weights_best.h5",
 
-    'max_len': 96,  # 72, 96  # max sequence length
+    'max_len': 96,  # max sequence length
     'max_features': None,  # how many unique words to use (i.e num rows in embedding vector)
     'num_train_epochs': 20,
 
-    'train_batch_size': 64,  # 64, 8
+    'train_batch_size': 64,
     'test_batch_size': 64,
 
     'early_stopping': True,
-    'early_stopping_patience': 5,  # 2
+    'early_stopping_patience': 5,
 
     'learning_rate': 1e-3,
 
@@ -35,8 +34,6 @@ config = {
 
     # 'embedding_details': {'glove': 'F:/workspace-backup/Models/glove.840B.300d/glove.840B.300d.txt',
     #                       'fasttext': 'F:/workspace-backup/Models/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
-    # 'embedding_details': {'glove': '/content/glove.840B.300d/glove.840B.300d.txt',
-    #                       'fasttext': '/content/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
-    'embedding_details': {'fasttext': '/content/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
-
+    'embedding_details': {'glove': '/content/glove.840B.300d/glove.840B.300d.txt',
+                          'fasttext': '/content/crawl-300d-2M-subword/crawl-300d-2M-subword.vec'},
 }

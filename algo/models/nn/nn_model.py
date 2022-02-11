@@ -30,6 +30,16 @@ MODEL_CLASSES = {
 
 class NNModel:
     def __init__(self, model_type_or_path, data_dir=None, args=None):
+        """
+        Initialize NNModel
+
+        :param model_type_or_path: str
+            Path to saved model or type - "lstm", "cnn1D" or "cnn2D"
+        :param data_dir: str, optional
+            Path to directory which has train and dev files
+            Only required if a model type is defined/ targets training a new model
+        :param args: JSON
+        """
 
         if os.path.isdir(model_type_or_path):
             self.args = self._load_model_args(model_type_or_path)

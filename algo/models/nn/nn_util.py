@@ -7,32 +7,18 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-# def load_fasttext(embedding_file, word_index, max_features):
-#     def get_coefs(word,*arr): return word, np.asarray(arr, dtype='float32')
-#     embeddings_index = dict(get_coefs(*o.split(" ")) for o in open(embedding_file, encoding='utf-8') if len(o)>100 and o.split(" ")[0] in word_index )
-#
-#     all_embs = np.stack(embeddings_index.values())
-#     emb_mean,emb_std = all_embs.mean(), all_embs.std()
-#     embed_size = all_embs.shape[1]
-#
-#     total_embed_size = len(list(embeddings_index.values())[0])
-#
-#     embedding_matrix = np.random.normal(emb_mean, emb_std, (max_features, total_embed_size))
-#     for word, i in word_index.items():
-#         if i >= max_features: continue
-#         embedding_vector = embeddings_index.get(word)
-#         if embedding_vector is not None: embedding_matrix[i] = embedding_vector
-#
-#     return embedding_matrix, total_embed_size
-
-
 def load_embeddings(dict_embedding_details, word_index, max_features):
     """
+    Load embeddings to a matrix
+    If multiple embedding details are provided with dict_embedding_details, their concatenation will be used.
+    For tokens which are unknown to some embedding models will use a vector of 0s as the embedding.
 
     :param dict_embedding_details: {name:file_path}
-    :param word_index:
-    :param max_features:
-    :return:
+        dictionary of unique name to refer to the embedding and path to embedding model
+    :param word_index: list
+    :param max_features: int
+    :return: matrix, int
+        embedding matrix and final embedding size
     """
 
     def get_coefs(word, *arr): return word, np.asarray(arr, dtype='float32')
@@ -66,16 +52,3 @@ def load_embeddings(dict_embedding_details, word_index, max_features):
     logger.info(f'Generated embedding matrix.')
     return embedding_matrix, total_embed_size
 
-
-
-if __name__ == '__main__':
-    a = np.zeros(300)
-    # b = np.zeros(300)
-    c = np.concatenate([a])
-    print(c)
-    print(a)
-    # print(np.zeros(300))
-
-    # test_dict = {'a':300, 'b':300}
-    # total_embed_size = sum(list(test_dict.values()))
-    # print(total_embed_size)

@@ -19,11 +19,13 @@ logger = logging.getLogger(__name__)
 
 def train(train_file_paths, test_file_paths=None, predictions_folder=None):
     """
-
-    :param train_file_paths:
+    Train LSTM model
+    :param train_file_paths: list
         train file format - .tsv with columns [id, tweet, label]
-    :param test_file_paths:
-    :param predictions_folder:
+    :param test_file_paths: list, optional
+        Given test file paths, the trained model will be evaluated on them and the results will be logged.
+    :param predictions_folder: str, optional
+        Given a predictions folder, test predictions will be saved
     :return:
     """
     delete_create_folder(lstm_config.OUTPUT_DIRECTORY)
@@ -99,6 +101,16 @@ def train(train_file_paths, test_file_paths=None, predictions_folder=None):
 
 
 def predict(data_file_path, predictions_folder, evaluate=True):
+    """
+    Predict using a model, and save final sentiment and confidence values to .xlsx file
+    :param data_file_path: str
+        format - .tsv file with column 'tweet'
+    :param predictions_folder: str
+    :param evaluate: boolean, optional
+        If true the predictions will be evaluated and there should be a 'label' column in input data to use with
+        evaluation.
+    :return:
+    """
     create_folder_if_not_exist(PREDICTION_DIRECTORY, is_file_path=False)
     file_name = os.path.splitext(os.path.basename(data_file_path))[0]
 
@@ -123,8 +135,6 @@ def predict(data_file_path, predictions_folder, evaluate=True):
 
 
 if __name__ == '__main__':
-    # train_file_path = "F:/DataSets/Sentiment analysis/FIFA_2014_sentiment_dataset/data_100.tsv"
-
     fifa_train_file = os.path.join(BASE_PATH, 'data/fifa_2014/train.tsv')
     fifa_test_file = os.path.join(BASE_PATH, 'data/fifa_2014/test.tsv')
     semeval_train_file = os.path.join(BASE_PATH, 'data/semeval_data/train.tsv')
@@ -138,11 +148,6 @@ if __name__ == '__main__':
     train_file_paths = [fifa_train_file]
     test_file_paths = [fifa_test_file, munliv_test_file, semeval_test_file, brexitvote_test_file]
     # train(train_file_paths, test_file_paths=test_file_paths, predictions_folder=predictions_folder)
-
-    munliv_annotation_file = os.path.join(BASE_PATH, 'data/munliv/munliv_annotations.tsv')
-    predict(munliv_test_file, predictions_folder)
-    # brexitvote_annotation_file = os.path.join(BASE_PATH, 'data/brexitvote/brexitvote_annotations.tsv')
-    # predict(brexitvote_annotation_file, predictions_folder)
 
     munlive_file = os.path.join(BASE_PATH, 'data/munliv/munliv-15.28-17.23.tsv')
     predict(munlive_file, predictions_folder, evaluate=False)

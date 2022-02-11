@@ -57,6 +57,12 @@ def remove_retweet_notations(sentence):
 
 
 def add_emoji_text(x):
+    """
+    Covert emoji to text
+    :param x: str
+    :return: str
+        String where emojis are replaced by text
+    """
     emoji_text = demoji.findall(x)
     for em in emoji_text.keys():
         x = x.replace(em, ' ' + emoji_text[em] + ' ')
@@ -65,6 +71,13 @@ def add_emoji_text(x):
 
 
 def preprocess_data(text, preserve_case=False, emoji_to_text=False):
+    """
+    A Pipeline to preprocess data
+    :param text: str
+    :param preserve_case: boolean, optional
+    :param emoji_to_text: boolean, optional
+    :return: str
+    """
     text = text.replace("\n", " ")
     text = remove_links(text, substitute='')
     text = remove_retweet_notations(text)
@@ -84,6 +97,15 @@ def preprocess_data(text, preserve_case=False, emoji_to_text=False):
 
 
 def split_data(df, seed, label_column='label', test_size=0.1):
+    """
+    StratifiedShuffleSplit the given DataFrame
+    :param df: DataFrame
+    :param seed: int
+    :param label_column: str
+    :param test_size: float
+    :return: DataFrame, DataFrame
+        train and test
+    """
     y = df[label_column]
     sss = StratifiedShuffleSplit(n_splits=1, test_size=test_size, random_state=seed)
     train_index, test_index = next(sss.split(df, y))
@@ -91,5 +113,4 @@ def split_data(df, seed, label_column='label', test_size=0.1):
     train = df.iloc[train_index]
     test = df.iloc[test_index]
     return train, test
-
 
