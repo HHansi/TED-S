@@ -1,6 +1,6 @@
 # TED-S: Twitter Event Dataset with Sentiments
 
-TED-S is a Twitter dataset corresponding to two major events (from sports and politics domain) throughout a continuous 
+TED-S is a Twitter dataset corresponding to two major events (from sports and political domain) throughout a continuous 
 period with both sub-event and sentiment labels.
 
 ## Events
