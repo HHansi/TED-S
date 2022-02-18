@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/442209987.svg)](https://zenodo.org/badge/latestdoi/442209987)
 # TED-S: Twitter Event Dataset with Sentiments
 
 TED-S is a Twitter dataset corresponding to two major events (from sports and political domain) throughout a continuous 
