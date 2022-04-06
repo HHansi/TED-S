@@ -13,5 +13,5 @@ period with both sub-event and sentiment labels.
 | MUNLIV      | 15:28-16:23 | 99,837       | 41,721         |
 | BrexitVote  | 08:00-13:59 | 174,078      | 35,541         |
 
-More details will be available with the paper <em>"TED-S: Twitter Event Data with Semi-supervised Sentiments"</em> which
+More details will be available with the paper <em>"TED-S: Twitter Event Data with Aggregated Sentiments"</em> which
  is under the review process currently.
