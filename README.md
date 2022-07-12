@@ -13,5 +13,20 @@ period with both sub-event and sentiment labels.
 | MUNLIV      | 15:28-16:23 | 99,837       | 41,721         |
 | BrexitVote  | 08:00-13:59 | 174,078      | 35,541         |
 
-More details will be available with the paper <em>"TED-S: Twitter Event Data with Aggregated Sentiments"</em> which
- is under the review process currently.
+More details are available with the paper "[TED-S: Twitter Event Data in Sports and Politics with Aggregated Sentiments](https://www.mdpi.com/2306-5729/7/7/90)".
+
+### Reference
+```
+@Article{data7070090,
+  AUTHOR = {Hettiarachchi, Hansi and Al-Turkey, Doaa and Adedoyin-Olowe, Mariam and Bhogal, Jagdev and Gaber, Mohamed Medhat},
+  TITLE = {TED-S: Twitter Event Data in Sports and Politics with Aggregated Sentiments},
+  JOURNAL = {Data},
+  VOLUME = {7},
+  YEAR = {2022},
+  NUMBER = {7},
+  ARTICLE-NUMBER = {90},
+  URL = {https://www.mdpi.com/2306-5729/7/7/90},
+  ISSN = {2306-5729},
+  DOI = {10.3390/data7070090}
+}
+```
