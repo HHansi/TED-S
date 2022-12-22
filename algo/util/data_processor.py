@@ -4,6 +4,7 @@ import re
 
 import demoji
 from nltk import TweetTokenizer
+from nltk.corpus import stopwords
 from sklearn.model_selection import StratifiedShuffleSplit
 
 puncts = [',', '.', '"', ':', ')', '(', '-', '!', '?', '|', ';', "'", '$', '&', '/', '[', ']', '>', '%', '=', '#', '*',
@@ -16,6 +17,8 @@ puncts = [',', '.', '"', ':', ')', '(', '-', '!', '?', '|', ';', "'", '$', '&', 
           'Ã', '⋅', '‘', '∞',
           '∙', '）', '↓', '、', '│', '（', '»', '，', '♪', '╩', '╚', '³', '・', '╦', '╣', '╔', '╗', '▬', '❤', 'ï', 'Ø', '¹',
           '≤', '‡', '√', '..', '...', '…']
+
+stop_words = set(stopwords.words('english'))
 
 
 def remove_links(sentence, substitute=''):
@@ -70,12 +73,13 @@ def add_emoji_text(x):
     return x
 
 
-def preprocess_data(text, preserve_case=False, emoji_to_text=False):
+def preprocess_data(text, preserve_case=False, emoji_to_text=False, remove_stopwords=False):
     """
     A Pipeline to preprocess data
     :param text: str
     :param preserve_case: boolean, optional
     :param emoji_to_text: boolean, optional
+    :param remove_stopwords: boolean, optional
     :return: str
     """
     text = text.replace("\n", " ")
@@ -87,7 +91,11 @@ def preprocess_data(text, preserve_case=False, emoji_to_text=False):
     # tokenize and lower case
     tknzr = TweetTokenizer(preserve_case=preserve_case, reduce_len=True, strip_handles=False)
     tokens = tknzr.tokenize(text)
-    text = " ".join(tokens)
+    if remove_stopwords:
+        filtered_words = [token for token in tokens if token not in stop_words]
+        text = " ".join(filtered_words)
+    else:
+        text = " ".join(tokens)
     # text.replace(symbol, "#")  # remove # in hash tags
     # remove white spaces at the beginning and end of the text
     text = text.strip()
