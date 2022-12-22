@@ -4,6 +4,8 @@
 TED-S is a Twitter dataset corresponding to two major events (from sports and political domain) throughout a continuous 
 period with both sub-event and sentiment labels.
 
+TED-S is an extended version of [Twitter-Event-Data-2019](https://github.com/HHansi/Twitter-Event-Data-2019) (TED), and sub-event ground truth data are available in the TED repository.
+
 ## Events
 1. MUNLIV - English Premier League 19/20 match between Manchester United FC and Liverpool FC on October 20, 2019
 2. BrexitVote - Brexit Super Saturday 2019/ UK parliament session on Saturday, October 19, 2019
@@ -19,7 +21,7 @@ More details are available with the paper "[TED-S: Twitter Event Data in Sports 
 ```
 @Article{data7070090,
   AUTHOR = {Hettiarachchi, Hansi and Al-Turkey, Doaa and Adedoyin-Olowe, Mariam and Bhogal, Jagdev and Gaber, Mohamed Medhat},
-  TITLE = {TED-S: Twitter Event Data in Sports and Politics with Aggregated Sentiments},
+  TITLE = {{TED-S}: Twitter Event Data in Sports and Politics with Aggregated Sentiments},
   JOURNAL = {Data},
   VOLUME = {7},
   YEAR = {2022},
