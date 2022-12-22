@@ -15,7 +15,7 @@ TED-S is an extended version of [Twitter-Event-Data-2019](https://github.com/HHa
 | MUNLIV      | 15:28-16:23 | 99,837       | 41,721         |
 | BrexitVote  | 08:00-13:59 | 174,078      | 35,541         |
 
-More details are available with the paper "[TED-S: Twitter Event Data in Sports and Politics with Aggregated Sentiments](https://www.mdpi.com/2306-5729/7/7/90)".
+More details covering the annotation approaches and sentiment distributions are available in the paper "[TED-S: Twitter Event Data in Sports and Politics with Aggregated Sentiments](https://www.mdpi.com/2306-5729/7/7/90)".
 
 ### Reference
 ```
